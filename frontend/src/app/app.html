@@ -1,0 +1,39 @@
+
+<main class="container">
+  <header>
+    <h1>Mengenmeldungen</h1>
+    <p>Erfassung und Übersicht abgegebener Mengenmeldungen</p>
+  </header>
+
+  <app-mengenmeldung-form
+    (saved)="loadMeldungen()"
+  />
+
+  <section class="list-section">
+    <div class="list-header">
+      <h2>Übersicht</h2>
+      <button
+        type="button"
+        (click)="loadMeldungen()"
+        [disabled]="loading"
+      >
+        Aktualisieren
+      </button>
+    </div>
+
+    @if (loading) {
+      <p>Mengenmeldungen werden geladen...</p>
+    }
+
+    @if (errorMessage) {
+      <p class="error" role="alert">{{ errorMessage }}</p>
+      <button type="button" (click)="loadMeldungen()">
+        Erneut versuchen
+      </button>
+    }
+
+    @if (!loading && !errorMessage) {
+      <app-mengenmeldung-list [meldungen]="meldungen" />
+    }
+  </section>
+</main>

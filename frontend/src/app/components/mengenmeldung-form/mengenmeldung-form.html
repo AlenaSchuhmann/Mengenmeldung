@@ -1,0 +1,105 @@
+
+<section class="panel">
+  <h2>Mengenmeldung abgeben</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-grid">
+      <div class="field">
+        <label for="menge">Menge *</label>
+        <input
+          id="menge"
+          type="number"
+          step="any"
+          min="0.01"
+          formControlName="menge"
+        />
+        @if (form.controls.menge.touched && form.controls.menge.invalid) {
+          <small class="error">Bitte eine Menge größer als 0 eingeben.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="einheit">Einheit (ID) *</label>
+        <input
+          id="einheit"
+          type="number"
+          min="1"
+          formControlName="einheit"
+        />
+        @if (form.controls.einheit.touched && form.controls.einheit.invalid) {
+          <small class="error">Bitte eine gültige Einheit eingeben.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="jahr">Jahr *</label>
+        <input
+          id="jahr"
+          type="number"
+          min="2000"
+          max="2100"
+          formControlName="jahr"
+        />
+      </div>
+
+      <div class="field">
+        <label for="monat">Monat *</label>
+        <select id="monat" formControlName="monat">
+          @for (monat of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; track monat) {
+            <option [ngValue]="monat">{{ monat }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="geraeteartNummer">Geräteart-Nummer *</label>
+        <input
+          id="geraeteartNummer"
+          type="number"
+          min="1"
+          formControlName="geraeteartNummer"
+        />
+      </div>
+
+      <div class="field">
+        <label for="registrierungsnummer">Registrierungsnummer *</label>
+        <input
+          id="registrierungsnummer"
+          type="number"
+          min="1"
+          formControlName="registrierungsnummer"
+        />
+      </div>
+    </div>
+
+    <label class="checkbox-field">
+      <input
+        type="checkbox"
+        formControlName="wahrheitserklaerung"
+      />
+      Ich bestätige die Richtigkeit meiner Angaben. *
+    </label>
+
+    @if (
+      form.controls.wahrheitserklaerung.touched &&
+      form.controls.wahrheitserklaerung.invalid
+    ) {
+      <small class="error">
+        Bitte bestätige die Richtigkeit deiner Angaben.
+      </small>
+    }
+
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Wird abgegeben...' : 'Mengenmeldung abgeben' }}
+    </button>
+
+    @if (successMessage) {
+      <p class="success" role="status">{{ successMessage }}</p>
+    }
+
+    @if (errorMessage) {
+      <p class="error" role="alert">{{ errorMessage }}</p>
+    }
+  </form>
+</section>
+

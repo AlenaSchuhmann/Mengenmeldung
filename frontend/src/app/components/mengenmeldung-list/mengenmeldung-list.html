@@ -1,0 +1,41 @@
+<section class="panel">
+  <h2>Abgegebene Mengenmeldungen</h2>
+
+  @if (meldungen.length === 0) {
+    <p>Es wurden noch keine Mengenmeldungen gefunden.</p>
+  } @else {
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Menge</th>
+            <th>Einheit</th>
+            <th>Jahr</th>
+            <th>Monat</th>
+            <th>Geräteart</th>
+            <th>Registrierungsnummer</th>
+            <th>Erstellt am</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (meldung of meldungen; track meldung.id) {
+            <tr>
+              <td>{{ meldung.id }}</td>
+              <td>{{ meldung.menge }}</td>
+              <td>{{ meldung.einheit }}</td>
+              <td>{{ meldung.jahr }}</td>
+              <td>{{ meldung.monat }}</td>
+              <td>{{ meldung.geraeteartNummer }}</td>
+              <td>{{ meldung.registrierungsnummer }}</td>
+              <td>
+                {{ meldung.erstelltAm | date:'dd.MM.yyyy HH:mm' }}
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>
