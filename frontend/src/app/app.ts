@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { MengenmeldungList } from './components/mengenmeldung-list/mengenmeldung-list';
 import { MengenmeldungService } from './services/mengenmeldung';
 import { MengenmeldungResponse } from './models/mengenmeldung.model';
@@ -7,36 +6,38 @@ import { MengenmeldungFormComponent } from './components/mengenmeldung-form/meng
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MengenmeldungList, MengenmeldungFormComponent],
+  imports: [MengenmeldungList, MengenmeldungFormComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App implements OnInit {
   private readonly service = inject(MengenmeldungService);
 
-  meldungen: MengenmeldungResponse[] = [];
-  loading = false;
-  errorMessage = '';
+  meldungen = signal<MengenmeldungResponse[]>([]);
+  loading = signal(false);
+  errorMessage = signal('');
 
   ngOnInit(): void {
     this.loadMeldungen();
   }
 
   loadMeldungen(): void {
-    this.loading = true;
-    this.errorMessage = '';
+    this.loading.set(true);
+    this.errorMessage.set('');
 
     this.service.getAll().subscribe({
       next: (meldungen) => {
-        this.meldungen = meldungen;
-        this.loading = false;
+        this.meldungen.set(meldungen);
+        this.loading.set(false);
       },
-      error: () => {
-        this.errorMessage =
-          'Mengenmeldungen konnten nicht geladen werden. Bitte Backend-Verbindung prüfen.';
-        this.loading = false;
+      error: (error) => {
+        console.error('Fehler beim Laden der Mengenmeldungen:', error);
+
+        this.errorMessage.set(
+          'Mengenmeldungen konnten nicht geladen werden. Bitte Backend-Verbindung prüfen.'
+        );
+        this.loading.set(false);
       }
     });
   }
-
 }

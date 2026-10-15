@@ -1,4 +1,3 @@
-
 <section class="panel">
   <h2>Mengenmeldung abgeben</h2>
 
@@ -6,40 +5,43 @@
     <div class="form-grid">
       <div class="field">
         <label for="menge">Menge *</label>
+
         <input
           id="menge"
           type="number"
-          step="any"
+          [attr.step]="form.controls.einheit.value === 1 ? '0.001' : '0.000001'"
           min="0.01"
           formControlName="menge"
         />
-        @if (form.controls.menge.touched && form.controls.menge.invalid) {
-          <small class="error">Bitte eine Menge größer als 0 eingeben.</small>
+
+        @if (form.controls.menge.touched && form.controls.menge.hasError('min')) {
+          <small class="error"> Bitte eine Menge größer als 0 eingeben. </small>
+        }
+
+        @if (form.controls.menge.touched && form.controls.menge.hasError('maxNachkommastellen')) {
+          <small class="error">
+            Für diese Einheit sind maximal
+            {{ form.controls.menge.getError('maxNachkommastellen').erlaubt }}
+            Nachkommastellen erlaubt.
+          </small>
         }
       </div>
 
       <div class="field">
-        <label for="einheit">Einheit (ID) *</label>
-        <input
-          id="einheit"
-          type="number"
-          min="1"
-          formControlName="einheit"
-        />
+        <label for="einheit">Einheit *</label>
+        <select id="einheit" formControlName="einheit">
+          <option [ngValue]="1">Kilogramm</option>
+          <option [ngValue]="3">Tonnen</option>
+        </select>
+
         @if (form.controls.einheit.touched && form.controls.einheit.invalid) {
-          <small class="error">Bitte eine gültige Einheit eingeben.</small>
+          <small class="error">Bitte eine gültige Einheit auswählen.</small>
         }
       </div>
 
       <div class="field">
         <label for="jahr">Jahr *</label>
-        <input
-          id="jahr"
-          type="number"
-          min="2000"
-          max="2100"
-          formControlName="jahr"
-        />
+        <input id="jahr" type="number" min="2000" max="2100" formControlName="jahr" />
       </div>
 
       <div class="field">
@@ -53,12 +55,7 @@
 
       <div class="field">
         <label for="geraeteartNummer">Geräteart-Nummer *</label>
-        <input
-          id="geraeteartNummer"
-          type="number"
-          min="1"
-          formControlName="geraeteartNummer"
-        />
+        <input id="geraeteartNummer" type="number" min="1" formControlName="geraeteartNummer" />
       </div>
 
       <div class="field">
@@ -73,20 +70,12 @@
     </div>
 
     <label class="checkbox-field">
-      <input
-        type="checkbox"
-        formControlName="wahrheitserklaerung"
-      />
+      <input type="checkbox" formControlName="wahrheitserklaerung" />
       Ich bestätige die Richtigkeit meiner Angaben. *
     </label>
 
-    @if (
-      form.controls.wahrheitserklaerung.touched &&
-      form.controls.wahrheitserklaerung.invalid
-    ) {
-      <small class="error">
-        Bitte bestätige die Richtigkeit deiner Angaben.
-      </small>
+    @if (form.controls.wahrheitserklaerung.touched && form.controls.wahrheitserklaerung.invalid) {
+      <small class="error"> Bitte bestätige die Richtigkeit deiner Angaben. </small>
     }
 
     <button type="submit" [disabled]="loading">
@@ -102,4 +91,3 @@
     }
   </form>
 </section>
-

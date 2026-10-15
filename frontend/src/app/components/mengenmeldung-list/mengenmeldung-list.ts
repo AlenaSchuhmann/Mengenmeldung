@@ -11,4 +11,14 @@ import { MengenmeldungResponse } from '../../models/mengenmeldung.model';
 export class MengenmeldungList {
  @Input() meldungen: MengenmeldungResponse[] = [];
 
+ getEinheitName(einheit: number): string {
+    switch (einheit) {
+      case 1:
+        return 'Kilogramm';
+      case 3:
+        return 'Tonnen';
+      default:
+        return 'Unbekannte Einheit';
+    }
+  }
 }
