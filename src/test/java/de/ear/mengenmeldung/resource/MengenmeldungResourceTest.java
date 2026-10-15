@@ -116,41 +116,6 @@ class MengenmeldungResourceTest {
     }
 
     @Test
-    void getMengenmeldung_shouldReturnMengenmeldungById() {
-        // Arrange
-        Long id = 42L;
-
-        MengenmeldungResponse response = new MengenmeldungResponse(
-                id,
-                new BigDecimal("75.25"),
-                1,
-                2026,
-                10,
-                100,
-                12345,
-                LocalDateTime.of(2026, 10, 15, 12, 0)
-        );
-
-        when(mengenmeldungBF.getMengenmeldung(id))
-                .thenReturn(response);
-
-        // Act & Assert
-        given()
-                .accept(ContentType.JSON)
-                .when()
-                .get(BASE_PATH + "/{id}", id)
-                .then()
-                .statusCode(200)
-                .contentType(ContentType.JSON)
-                .body("id", equalTo(42))
-                .body("menge", equalTo(75.25f))
-                .body("jahr", equalTo(2026))
-                .body("monat", equalTo(10));
-
-        verify(mengenmeldungBF).getMengenmeldung(id);
-    }
-
-    @Test
     void submitMengenmeldung_shouldReturnBadRequestWhenMengeIsInvalid() {
         // Menge darf nicht null oder kleiner/gleich 0 sein.
         String invalidRequest = """

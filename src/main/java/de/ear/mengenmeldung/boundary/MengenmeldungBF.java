@@ -18,10 +18,6 @@ public class MengenmeldungBF {
         return mengenmeldungBA.submitMengenmeldung(mengenmeldungRequest);
     }
 
-    public MengenmeldungResponse getMengenmeldung(Long id) {
-        return mengenmeldungBA.getMengenmeldung(id);
-    }
-
     public List<MengenmeldungResponse> getAllMengenmeldungen() {
         return mengenmeldungBA.getAllMengenmeldungen();
     }

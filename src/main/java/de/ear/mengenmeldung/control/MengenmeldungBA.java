@@ -6,7 +6,6 @@ import de.ear.mengenmeldung.entity.MengenmeldungBE;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.NotFoundException;
 
 import java.util.List;
 
@@ -22,16 +21,6 @@ public class MengenmeldungBA {
         validateInput(mengenmeldungRequest);
         MengenmeldungBE meldung = mapper.toEntity(mengenmeldungRequest);
         meldung.persistAndFlush();
-        return MengenmeldungResponse.toResponse(meldung);
-    }
-
-    public MengenmeldungResponse getMengenmeldung(Long id) {
-        MengenmeldungBE meldung =
-                MengenmeldungBE.findById(id);
-
-        if (meldung == null) {
-            throw new NotFoundException("Mengenmeldung with ID " + id + " not found.");
-        }
         return MengenmeldungResponse.toResponse(meldung);
     }
 
