@@ -21,6 +21,8 @@ public class MengenmeldungBA {
         validateInput(mengenmeldungRequest);
         MengenmeldungBE meldung = mapper.toEntity(mengenmeldungRequest);
         meldung.persistAndFlush();
+        //TODO: Call submitIstInput from soap-sst
+        //TODO: To handle high loads consider asynchronous processing, maybe via quartz job
         return MengenmeldungResponse.toResponse(meldung);
     }
 
