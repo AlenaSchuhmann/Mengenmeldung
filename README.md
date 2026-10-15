@@ -1,8 +1,11 @@
 # mengenmeldung
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This project uses Quarkus, the Supersonic Subatomic Java Framework, for the backend.
 
 If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+
+This project's frontend was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
+For frontend details, see [README](fronted/README.md)
 
 ## Running the application in dev mode
 
@@ -10,9 +13,11 @@ You can run your application in dev mode that enables live coding using:
 
 ```shell script
 ./mvnw quarkus:dev
+```
+Windows:
+```shell script
 .\mvnw.cmd quarkus:dev
 ```
-
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
 
 ## Packaging and running the application
@@ -62,20 +67,10 @@ If you want to learn more about building native executables, please consult <htt
 - Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplified JPA/Hibernate data access layer with active record and repository patterns
 - JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
 
-## Provided Code
+## Database
 
-### Hibernate ORM
+To run the project locally, consider starting a postgres in a docker container:
 
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-
-[Related Hibernate with Panache section...](https://quarkus.io/guides/hibernate-orm-panache)
-
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+```shell script
+docker run --name mengenmeldung-db -e POSTGRES_DB=mengenmeldung -e POSTGRES_USER=app -e POSTGRES_PASSWORD=app -p 5432:5432 -d postgres:16
+```
