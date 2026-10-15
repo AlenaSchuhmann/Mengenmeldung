@@ -7,20 +7,24 @@ import java.time.LocalDateTime;
 
 public record MengenmeldungResponse(
         Long id,
-        String geraeteart,
         BigDecimal menge,
-        String status,
-        LocalDateTime erstelltAm,
-        String fehler
+        int einheit,
+        int jahr,
+        int monat,
+        int geraeteartNummer,
+        int registrierungsnummer,
+        LocalDateTime erstelltAm
 ) {
-    public static MengenmeldungResponse from(MengenmeldungBE entity) {
+    public static MengenmeldungResponse toResponse(MengenmeldungBE entity) {
         return new MengenmeldungResponse(
-                entity.id,
-                entity.geraeteart,
-                entity.menge,
-                entity.status.name(),
-                entity.erstelltAm,
-                entity.fehler
-        );
+                entity.getId(),
+                entity.getMenge(),
+                entity.getEinheit(),
+                entity.getJahr(),
+                entity.getMonat(),
+                entity.getGeraeteartNummer(),
+                entity.getRegistrierungsnummer(),
+                entity.getErstelltAm()
+                );
     }
 }
