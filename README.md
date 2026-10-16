@@ -5,7 +5,7 @@ This project uses Quarkus, the Supersonic Subatomic Java Framework, for the back
 If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
 
 This project's frontend was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
-For frontend details, see [README](fronted/README.md)
+For frontend details, see [README](frontend/README.md)
 
 ## Running the application in dev mode
 
